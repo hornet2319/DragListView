@@ -39,6 +39,8 @@ import android.widget.HorizontalScrollView;
 import android.widget.LinearLayout;
 import android.widget.Scroller;
 
+import com.lshershun.draglistview.R;
+
 import java.util.ArrayList;
 
 import static android.support.v7.widget.RecyclerView.NO_POSITION;

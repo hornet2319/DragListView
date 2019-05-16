@@ -1,0 +1,67 @@
+apply plugin: 'com.android.library'
+apply plugin: 'com.github.dcendents.android-maven'
+apply plugin: 'com.jfrog.bintray'
+
+ext {
+
+    bintrayRepo = 'DragListView'
+    bintrayName = 'com.lshershun.draglistview'
+
+    libraryName = 'draglistview'
+
+    publishedGroupId = 'com.lshershun.view'
+    artifact = 'draglistview'
+    libraryVersion = '0.0.1'
+
+    libraryDescription = 'Drag and drop to reorder items in a list, grid or board for Android. Based on RecyclerView. Also supports swiping items in a list.'
+    siteUrl = 'https://github.com/hornet2319/DragListView'
+    gitUrl = 'https://github.com/hornet2319/DragListView.git'
+    developerId = 'lshershun'
+    developerName = 'Liubomyr Shershun'
+    developerEmail = 'lsherhsun@gmail.com'
+    licenseName = 'The Apache Software License, Version 2.0'
+    licenseUrl = 'http://www.apache.org/licenses/LICENSE-2.0.txt'
+    allLicenses = ["Apache-2.0"]
+
+}
+
+android {
+    compileSdkVersion 27
+    buildToolsVersion '28.0.2'
+
+    defaultConfig {
+        minSdkVersion 14
+        targetSdkVersion 27
+        versionCode 1
+        versionName "1.0"
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+    testOptions {
+        unitTests {
+            includeAndroidResources = true
+        }
+    }
+}
+repositories{
+    mavenCentral()
+}
+
+dependencies {
+
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    implementation 'com.android.support:recyclerview-v7:27.1.1'
+    testImplementation 'org.robolectric:robolectric:3.3.2'
+    testImplementation 'org.mockito:mockito-core:2.7.22'
+    testImplementation 'junit:junit:4.12'
+    testImplementation 'com.squareup.assertj:assertj-android:1.0.0'
+}
+
+if (project.rootProject.file('local.properties').exists()) {
+    apply from: 'https://raw.githubusercontent.com/nuuneoi/JCenter/master/installv1.gradle'
+    apply from: 'https://raw.githubusercontent.com/nuuneoi/JCenter/master/bintrayv1.gradle'
+}

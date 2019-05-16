@@ -26,6 +26,7 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.widget.FrameLayout;
 
+import com.lshershun.draglistview.R;
 import com.woxthebox.draglistview.swipe.ListSwipeHelper;
 
 public class DragListView extends FrameLayout {

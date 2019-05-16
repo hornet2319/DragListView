@@ -27,7 +27,7 @@ import android.view.View;
 import android.view.animation.DecelerateInterpolator;
 import android.widget.RelativeLayout;
 
-import com.woxthebox.draglistview.R;
+import com.lshershun.draglistview.R;
 
 public class ListSwipeItem extends RelativeLayout {
 

@@ -5,7 +5,7 @@ android {
     buildToolsVersion '28.0.2'
 
     defaultConfig {
-        applicationId "com.woxthebox.draglistview.sample"
+        applicationId "com.lshershun.draglistview.sample"
         minSdkVersion 14
         targetSdkVersion 27
         versionCode 1
@@ -21,7 +21,7 @@ android {
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
-    implementation project(':library')
+    implementation project(':draglistview')
     implementation 'com.android.support:appcompat-v7:27.1.1'
     implementation 'com.android.support:cardview-v7:27.1.1'
     implementation 'com.android.support:recyclerview-v7:27.1.1'

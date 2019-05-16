@@ -12,6 +12,8 @@ package com.woxthebox.draglistview;
 
 import android.view.View;
 
+import com.lshershun.draglistview.BuildConfig;
+
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
