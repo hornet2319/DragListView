@@ -31,9 +31,6 @@ Add this to proguard rules, otherwise animations won't work correctly
     -keep class com.woxthebox.draglistview.** { *; }
 
 ## License
-
-If you feel like it then drop me a mail at woxthebox@gmail.com and tell me what app you have included this lib in. It is always fun to hear!
-
     Copyright 2014 Magnus Woxblom
 
     Licensed under the Apache License, Version 2.0 (the "License");
