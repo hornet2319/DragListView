@@ -7,7 +7,7 @@ YouTube demo video<br>
 
 # Source
 Original library are located here: https://github.com/woxblom/DragListView    
-Added more flexibility to UI. Column's UI can be customized
+Added more flexibility to UI. Column's UI can be customized (in development)
 
 ## Features
 * Re-order items in a list, grid or board by dragging and dropping with nice animations.
@@ -23,7 +23,7 @@ Added more flexibility to UI. Column's UI can be customized
     }
 
     dependencies {
-        implementation 'com.lshershun.view:draglistview:0.0.1'
+        implementation 'com.lshershun.view:draglistview:0.0.2'
     }
 
 Add this to proguard rules, otherwise animations won't work correctly
@@ -31,7 +31,6 @@ Add this to proguard rules, otherwise animations won't work correctly
     -keep class com.woxthebox.draglistview.** { *; }
 
 ## License
-    Copyright 2014 Magnus Woxblom
 
     Licensed under the Apache License, Version 2.0 (the "License");
     you may not use this file except in compliance with the License.
