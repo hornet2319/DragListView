@@ -21,14 +21,18 @@ import android.animation.AnimatorListenerAdapter;
 import android.content.Context;
 import android.content.res.Configuration;
 import android.content.res.Resources;
+import android.content.res.TypedArray;
+import android.os.Build;
 import android.os.Parcel;
 import android.os.Parcelable;
 import android.support.annotation.Nullable;
+import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewCompat;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.GestureDetector;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
@@ -130,6 +134,9 @@ public class BoardView extends HorizontalScrollView implements AutoScroller.Auto
     private float mTouchX;
     private float mTouchY;
     private float mDragColumnStartScrollX;
+    private int mColumnSpacing;
+    private int mListBackgroundDrawable;
+    private int mListBackgroundColor;
     private int mColumnWidth;
     private int mDragStartColumn;
     private int mDragStartRow;
@@ -145,6 +152,20 @@ public class BoardView extends HorizontalScrollView implements AutoScroller.Auto
 
     public BoardView(Context context, AttributeSet attrs) {
         super(context, attrs);
+        init(attrs);
+    }
+
+    private void init(AttributeSet set) {
+        if (set == null) return;
+        TypedArray ta = getContext().obtainStyledAttributes(set, R.styleable.BoardView);
+        try {
+            mListBackgroundDrawable = ta.getResourceId(R.styleable.BoardView_listBackgroundDrawable, 0);
+            mListBackgroundColor = ta.getResourceId(R.styleable.BoardView_listBackgroundColor, 0);
+            mColumnSpacing = ta.getDimensionPixelSize(R.styleable.BoardView_columnSpacing, 0);
+        } finally {
+            ta.recycle();
+        }
+
     }
 
     public BoardView(Context context, AttributeSet attrs, int defStyleAttr) {
@@ -910,18 +931,33 @@ public class BoardView extends HorizontalScrollView implements AutoScroller.Auto
 
         LinearLayout layout = new LinearLayout(getContext());
         layout.setOrientation(LinearLayout.VERTICAL);
-        layout.setLayoutParams(new LayoutParams(mColumnWidth, LayoutParams.MATCH_PARENT));
+        LayoutParams params = new LayoutParams(mColumnWidth, LayoutParams.MATCH_PARENT);
+        layout.setLayoutParams(params);
         View columnHeader = header;
         if (header == null) {
             columnHeader = new View(getContext());
             columnHeader.setVisibility(View.GONE);
         }
+//        ((LinearLayout.LayoutParams)recyclerView.getLayoutParams()).topMargin = headerMargin;
+        try {
+
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
+                if (mListBackgroundDrawable != 0) {
+                    recyclerView.setBackground(ContextCompat.getDrawable(getContext(), mListBackgroundDrawable));
+                } else if (mListBackgroundColor != 0) {
+                    recyclerView.setBackgroundColor(ContextCompat.getColor(getContext(), mListBackgroundColor));
+                }
+            }
+        } catch (Exception ex) {
+            Log.w("boardView", "could not resolve resources provided as list background");
+        }
         layout.addView(columnHeader);
         mHeaders.add(columnHeader);
 
         layout.addView(recyclerView);
-
         mLists.add(index, recyclerView);
+        int leftMargin = index == 0 ? mColumnSpacing : 0;
+        layout.setPadding(leftMargin, 0, mColumnSpacing,0);
         mColumnLayout.addView(layout, index);
         return recyclerView;
     }
