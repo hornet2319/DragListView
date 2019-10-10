@@ -694,6 +694,10 @@ public class BoardView extends HorizontalScrollView implements AutoScroller.Auto
         mColumnWidth = width;
     }
 
+    public int getColumnWidth() {
+        return mColumnWidth;
+    }
+
     /**
      * @param snapToColumn true if scrolling should snap to columns. Only applies to portrait mode.
      */
