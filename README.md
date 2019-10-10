@@ -1,4 +1,7 @@
 # DragListView
+
+<a href='https://bintray.com/lsherhsun/DragListView/com.lshershun.draglistview/_latestVersion'><img src='https://api.bintray.com/packages/lsherhsun/DragListView/com.lshershun.draglistview/images/download.svg'></a>
+
 DragListView can be used when you want to be able to re-order items in a list, grid or a board.
 It also supports horizontal swiping of items in a list.
 
