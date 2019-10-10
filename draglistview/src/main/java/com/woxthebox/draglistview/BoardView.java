@@ -50,7 +50,6 @@ import java.util.ArrayList;
 import static android.support.v7.widget.RecyclerView.NO_POSITION;
 
 public class BoardView extends HorizontalScrollView implements AutoScroller.AutoScrollListener {
-
     public interface BoardCallback {
         boolean canDragItemAtPosition(int column, int row);
 
@@ -195,13 +194,20 @@ public class BoardView extends HorizontalScrollView implements AutoScroller.Auto
         mRootLayout = new FrameLayout(getContext());
         mRootLayout.setLayoutParams(new LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.MATCH_PARENT));
 
+        View statusView = new FrameLayout(getContext());
+        statusView.setLayoutParams(new LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.MATCH_PARENT));
+//        statusView.setBackgroundColor(Color.rgb(250, 140, 0));
+        statusView.setVisibility(GONE);
         mColumnLayout = new LinearLayout(getContext());
         mColumnLayout.setOrientation(LinearLayout.HORIZONTAL);
         mColumnLayout.setLayoutParams(new LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.MATCH_PARENT));
         mColumnLayout.setMotionEventSplittingEnabled(false);
 
         mRootLayout.addView(mColumnLayout);
+        mRootLayout.addView(statusView);
         mRootLayout.addView(mDragItem.getDragItemView());
+
+
         addView(mRootLayout);
     }
 
@@ -742,8 +748,8 @@ public class BoardView extends HorizontalScrollView implements AutoScroller.Auto
         DragItem newDragItem = dragItem != null ? dragItem : new DragItem(getContext());
         newDragItem.setSnapToTouch(mDragItem.isSnapToTouch());
         mDragItem = newDragItem;
-        mRootLayout.removeViewAt(1);
-        mRootLayout.addView(mDragItem.getDragItemView());
+        mRootLayout.removeViewAt(2);
+        mRootLayout.addView(mDragItem.getDragItemView(), 2);
     }
 
     /**
@@ -816,7 +822,6 @@ public class BoardView extends HorizontalScrollView implements AutoScroller.Auto
      * @param header           Header view that will be positioned above the column. Can be null.
      * @param columnDragView   View that will act as handle to drag and drop columns. Can be null.
      * @param hasFixedItemSize If the items will have a fixed or dynamic size.
-     *
      * @return The created DragItemRecyclerView.
      */
     public DragItemRecyclerView insertColumn(final DragItemAdapter adapter, int index, final @Nullable View header, @Nullable View columnDragView, boolean hasFixedItemSize) {
@@ -832,7 +837,6 @@ public class BoardView extends HorizontalScrollView implements AutoScroller.Auto
      * @param header           Header view that will be positioned above the column. Can be null.
      * @param columnDragView   View that will act as handle to drag and drop columns. Can be null.
      * @param hasFixedItemSize If the items will have a fixed or dynamic size.
-     *
      * @return The created DragItemRecyclerView.
      */
     public DragItemRecyclerView addColumn(final DragItemAdapter adapter, final @Nullable View header, @Nullable View columnDragView, boolean hasFixedItemSize) {
@@ -841,7 +845,7 @@ public class BoardView extends HorizontalScrollView implements AutoScroller.Auto
         return recyclerView;
     }
 
-    private void setupColumnDragListener(View columnDragView, final DragItemRecyclerView recyclerView ) {
+    private void setupColumnDragListener(View columnDragView, final DragItemRecyclerView recyclerView) {
         if (columnDragView != null) {
             columnDragView.setOnLongClickListener(new OnLongClickListener() {
                 @Override
@@ -957,7 +961,7 @@ public class BoardView extends HorizontalScrollView implements AutoScroller.Auto
         layout.addView(recyclerView);
         mLists.add(index, recyclerView);
         int leftMargin = index == 0 ? mColumnSpacing : 0;
-        layout.setPadding(leftMargin, 0, mColumnSpacing,0);
+        layout.setPadding(leftMargin, 0, mColumnSpacing, 0);
         mColumnLayout.addView(layout, index);
         return recyclerView;
     }
