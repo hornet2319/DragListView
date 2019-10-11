@@ -89,6 +89,11 @@ public class BoardFragment extends Fragment {
             }
 
             @Override
+            public void onDragPointChange(float x, float y) {
+                // not implemented
+            }
+
+            @Override
             public void onItemChangedColumn(int oldColumn, int newColumn) {
                 TextView itemCount1 = mBoardView.getHeaderView(oldColumn).findViewById(R.id.item_count);
                 itemCount1.setText(String.valueOf(mBoardView.getAdapter(oldColumn).getItemCount()));
