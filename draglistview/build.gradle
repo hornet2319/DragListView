@@ -11,7 +11,7 @@ ext {
 
     publishedGroupId = 'com.lshershun.view'
     artifact = 'draglistview'
-    libraryVersion = '0.0.3.1'
+    libraryVersion = '0.0.3.2'
 
     libraryDescription = 'Drag and drop to reorder items in a list, grid or board for Android. Based on RecyclerView. Also supports swiping items in a list.'
     siteUrl = 'https://github.com/hornet2319/DragListView'

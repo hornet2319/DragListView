@@ -63,6 +63,8 @@ public class BoardView extends HorizontalScrollView implements AutoScroller.Auto
 
         void onItemChangedPosition(int oldColumn, int oldRow, int newColumn, int newRow);
 
+        void onDragPointChange(float x, float y);
+
         void onItemChangedColumn(int oldColumn, int newColumn);
 
         void onFocusedColumnChanged(int oldColumn, int newColumn);
@@ -893,11 +895,15 @@ public class BoardView extends HorizontalScrollView implements AutoScroller.Auto
             public void onDragging(int itemPosition, float x, float y) {
                 int column = getColumnOfList(recyclerView);
                 boolean positionChanged = column != mLastDragColumn || itemPosition != mLastDragRow;
-                if (mBoardListener != null && positionChanged) {
-                    mLastDragColumn = column;
-                    mLastDragRow = itemPosition;
-                    mBoardListener.onItemChangedPosition(mDragStartColumn, mDragStartRow, column, itemPosition);
+                if (mBoardListener != null) {
+                    mBoardListener.onDragPointChange(x, y);
+                    if (positionChanged) {
+                        mLastDragColumn = column;
+                        mLastDragRow = itemPosition;
+                        mBoardListener.onItemChangedPosition(mDragStartColumn, mDragStartRow, column, itemPosition);
+                    }
                 }
+
             }
 
             @Override
