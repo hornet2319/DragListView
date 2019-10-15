@@ -863,6 +863,10 @@ public class BoardView extends HorizontalScrollView implements AutoScroller.Auto
         }
     }
 
+    public int getmColumnSpacing() {
+        return mColumnSpacing;
+    }
+
     private DragItemRecyclerView insertColumn(final DragItemAdapter adapter, int index, final @Nullable View header, boolean hasFixedItemSize) {
         if (index > getColumnCount()) {
             throw new IllegalArgumentException("Index is out of bounds");
