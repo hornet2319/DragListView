@@ -1,31 +1,24 @@
-apply plugin: 'com.android.library'
-apply plugin: 'com.github.dcendents.android-maven'
-apply plugin: 'com.jfrog.bintray'
 
-ext {
+import com.vanniktech.maven.publish.AndroidSingleVariantLibrary
+import com.vanniktech.maven.publish.SonatypeHost
 
-    bintrayRepo = 'DragListView'
-    bintrayName = 'com.lshershun.draglistview'
+//apply plugin: 'com.android.library'
 
-    libraryName = 'draglistview'
-
-    publishedGroupId = 'com.lshershun.view'
-    artifact = 'draglistview'
-    libraryVersion = '0.0.3.4'
-
-    libraryDescription = 'Drag and drop to reorder items in a list, grid or board for Android. Based on RecyclerView. Also supports swiping items in a list.'
-    siteUrl = 'https://github.com/hornet2319/DragListView'
-    gitUrl = 'https://github.com/hornet2319/DragListView.git'
-    developerId = 'lshershun'
-    developerName = 'Liubomyr Shershun'
-    developerEmail = 'lsherhsun@gmail.com'
-    licenseName = 'The Apache Software License, Version 2.0'
-    licenseUrl = 'http://www.apache.org/licenses/LICENSE-2.0.txt'
-    allLicenses = ["Apache-2.0"]
-
+plugins {
+    id("com.android.library")
+    id("com.vanniktech.maven.publish") version "0.30.0"
 }
 
+
+//mavenPublishing {
+//    // the first parameter represennts which variant is published
+//    // the second whether to publish a sources jar
+//    // the third whether to publish a javadoc jar
+//    configure(new AndroidSingleVariantLibrary("release", true, true))
+//}
+
 android {
+    namespace'com.lshershun.draglistview'
     compileSdkVersion 27
     buildToolsVersion '28.0.2'
 
@@ -47,6 +40,40 @@ android {
         }
     }
 }
+
+mavenPublishing {
+    publishToMavenCentral(SonatypeHost.CENTRAL_PORTAL)
+    configure(new AndroidSingleVariantLibrary("release", true, true))
+    signAllPublications()
+    coordinates("com.lshershun.draglistview", "DragListView", "0.1")
+
+    pom {
+        name = "DragListView"
+        description = "Drag and drop to reorder items in a list, grid or board for Android. Based on RecyclerView. Also supports swiping items in a list. Relisted from jcenter"
+        inceptionYear = "2015"
+        url = "https://github.com/hornet2319/DragListView/"
+        licenses {
+            license {
+                name = "The Apache License, Version 2.0"
+                url = "http://www.apache.org/licenses/LICENSE-2.0.txt"
+                distribution = "http://www.apache.org/licenses/LICENSE-2.0.txt"
+            }
+        }
+        developers {
+            developer {
+                id = "lshershun"
+                name = "Liubomyr Shershun"
+                url = "https://github.com/hornet2319"
+            }
+        }
+        scm {
+            url = "https://github.com/hornet2319/DragListView"
+            connection = "scm:git:git://github.com/hornet2319/DragListView.git"
+            developerConnection = "scm:git:ssh://git@github.com/hornet2319/DragListView.git"
+        }
+    }
+}
+
 repositories{
     mavenCentral()
 }
@@ -59,9 +86,4 @@ dependencies {
     testImplementation 'org.mockito:mockito-core:2.7.22'
     testImplementation 'junit:junit:4.12'
     testImplementation 'com.squareup.assertj:assertj-android:1.0.0'
-}
-
-if (project.rootProject.file('local.properties').exists()) {
-    apply from: 'https://raw.githubusercontent.com/nuuneoi/JCenter/master/installv1.gradle'
-    apply from: 'https://raw.githubusercontent.com/nuuneoi/JCenter/master/bintrayv1.gradle'
 }
