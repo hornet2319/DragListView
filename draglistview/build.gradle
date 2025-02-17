@@ -7,15 +7,8 @@ import com.vanniktech.maven.publish.SonatypeHost
 plugins {
     id("com.android.library")
     id("com.vanniktech.maven.publish") version "0.30.0"
+    id("signing")
 }
-
-
-//mavenPublishing {
-//    // the first parameter represennts which variant is published
-//    // the second whether to publish a sources jar
-//    // the third whether to publish a javadoc jar
-//    configure(new AndroidSingleVariantLibrary("release", true, true))
-//}
 
 android {
     namespace'com.lshershun.draglistview'
@@ -44,8 +37,9 @@ android {
 mavenPublishing {
     publishToMavenCentral(SonatypeHost.CENTRAL_PORTAL)
     configure(new AndroidSingleVariantLibrary("release", true, true))
+    coordinates("io.github.hornet2319", "DragListView", "0.1")
+
     signAllPublications()
-    coordinates("com.lshershun.draglistview", "DragListView", "0.1")
 
     pom {
         name = "DragListView"

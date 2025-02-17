@@ -12,7 +12,7 @@ package com.woxthebox.draglistview;
 
 import android.view.View;
 
-import com.lshershun.draglistview.BuildConfig;
+//import com.lshershun.draglistview.BuildConfig;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -30,7 +30,7 @@ import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 @RunWith(RobolectricTestRunner.class)
-@Config(constants = BuildConfig.class, sdk = 25)
+//@Config(constants = BuildConfig.class, sdk = 25)
 public class BoardViewTest {
     private BoardView subject;
     private DragItemAdapter adapter;
